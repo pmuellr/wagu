@@ -1,5 +1,26 @@
 /** @typedef { import('../chapter01.ts').Numberz } Numberz */
 
+/** @type { (bytes: Uint8Array) => WebAssembly.Exports } */
+export function loadMod(bytes) {
+  const mod = new WebAssembly.Module(bytes)
+  return new WebAssembly.Instance(mod).exports
+}
+
+export const instr = {
+  end: 0x0b,
+  i32: { 'const': 0x41 },
+  i64: { 'const': 0x42 },
+  f32: { 'const': 0x43 },
+  f64: { 'const': 0x44 },
+}
+
+export const valtype = {
+  i32: 0x7f,
+  i64: 0x7e,
+  f32: 0x7d,
+  f64: 0x7c,
+}
+
 /** @type { () => number[] } */
 export function magic() {
   // [0x00, 0x61, 0x73, 0x6d]
@@ -12,6 +33,12 @@ export function version() {
 }
 
 const SECTION_ID_TYPE = 1
+
+/** @type { (n: Numberz) => number[] } */
+export function flat(n) {
+  // @ts-ignore
+  return n.flat(Infinity)
+}
 
 /** @type { (paramTypes: number[], resultTypes: number[]) => Numberz } */
 export function functype(paramTypes, resultTypes) {
@@ -37,8 +64,7 @@ const SECTION_ID_CODE = 10
 
 /** @type { (func: Numberz) => Numberz } */
 export function code(func) {
-  // @ts-ignore
-  const sizeInBytes = func.flat(Infinity).length
+  const sizeInBytes = flat(func).length
   return [u32(sizeInBytes), func]
 }
 
@@ -81,13 +107,12 @@ export const exportdesc = {
 
 /** @type { (sections: Numberz) => Numberz } */
 export function module(sections) {
-  return [magic(), version(), sections];
+  return [magic(), version(), sections]
 }
 
 /** @type { (id: number, contents: Numberz) => Numberz } */
 export function section(id, contents) {
-  // @ts-ignore
-  const sizeInBytes = [contents].flat(Infinity).length
+  const sizeInBytes = flat(contents).length
   return [id, u32(sizeInBytes), contents]
 }
 

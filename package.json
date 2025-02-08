@@ -16,5 +16,8 @@
   },
   "bugs": {
     "url": "https://github.com/pmuellr/wagu/issues"
+  },
+  "dependencies": {
+    "ohm-js": "^17.1.0"
   }
 }

@@ -42,10 +42,10 @@ async function main() {
     })
 
     await test('compileNopLang result compiles to a wasm module', async () => {
-      const {instance} = await WebAssembly.instantiate(compileVoidLang(''));
+      const {instance} = await WebAssembly.instantiate(compileVoidLang(''))
     
       // @ts-ignore
-      assert.strictEqual(instance.exports.main(), undefined);
+      assert.strictEqual(instance.exports.main(), undefined)
     })    
   })
 }

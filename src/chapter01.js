@@ -1,14 +1,25 @@
 /** @typedef { import('./types.ts').Numberz } Numberz */
 
-import { module, typesec, functype, func, funcsec, typeidx, exportsec, export_, exportdesc, codesec, code } from './lib/lib.js'
+import { 
+  code, 
+  codesec,
+  export_,
+  exportdesc,
+  exportsec,
+  flat,
+  func,
+  funcsec,
+  functype,
+  instr,
+  module,
+  typesec,
+  typeidx,
+} from './lib/lib.js'
 
 /** @type { (code: string) => Uint8Array } */
 export function compileVoidLang(source) {
   if (source !== '') {
     throw new Error(`Expected empty code, got: "${source}"`)
-  }
-  const instr = {
-    end: 0x0b,
   }
 
   const mod = module([
@@ -16,8 +27,7 @@ export function compileVoidLang(source) {
     funcsec([typeidx(0)]),
     exportsec([export_('main', exportdesc.func(0))]),
     codesec([code(func([], [instr.end]))]),
-  ]);
+  ])
 
-  // @ts-ignore
-  return Uint8Array.from(mod.flat(Infinity))
+  return Uint8Array.from(flat(mod))
 }
