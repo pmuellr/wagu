@@ -1,0 +1,1 @@
+export type Numberz = number | Numberz[]

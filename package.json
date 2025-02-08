@@ -1,0 +1,20 @@
+{
+  "name": "wagu",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "my files for 'WebAssembly from the Ground Up'",
+  "license": "MIT",
+  "author": "Patrick Mueller <pmuellr@apache.org> (https://github.com/pmuellr)",
+  "homepage": "https://github.com/pmuellr/wagu",
+  "scripts": {
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pmuellr/wagu.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pmuellr/wagu/issues"
+  }
+}
